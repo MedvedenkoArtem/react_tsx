@@ -1,6 +1,6 @@
 export type FeedbackProps = {
-  like: number
-  dislike: number
+  likes: number
+  dislikes: number
   onLike: () => void
   onDislike: () => void
   resetResults: () => void
