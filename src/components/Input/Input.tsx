@@ -1,37 +1,30 @@
-/** @jsxImportSource @emotion/react */
-/** @jsxImportSource @emotion/react */
-import { ChangeEvent } from "react"
-import { StyledInput, ErrorText, InputWrapper } from "./styles"
-import type { InputProps } from "./types"
+import "./styles.css";
+import type { InputProps } from "./types";
+
+// function Input(props) {
+//   console.log(props);
+//   const { id, name, type, placeholder, label } = props;
 function Input({
-  id,
-  name,
-  value,
-  placeholder,
-  disabled,
-  error,
-  onChange,
+  id = "input-id",
+  name = "input-name",
+  type = "text",
+  placeholder = "",
+  label = "",
 }: InputProps) {
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event)
-  }
-
   return (
-    <InputWrapper>
-      <StyledInput
+    <div className="input-wrapper">
+      <label className="input-label" htmlFor={id}>
+        {label}
+      </label>
+      <input
+        className="input-component"
         id={id}
         name={name}
-        value={value}
+        type={type}
         placeholder={placeholder}
-        disabled={disabled}
-        hasError={!!error}
-        onChange={handleChange}
       />
-
-      {error && <ErrorText>{error}</ErrorText>}
-    </InputWrapper>
-  )
+    </div>
+  );
 }
 
-export default Input
+export default Input;

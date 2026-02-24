@@ -1,19 +1,14 @@
-/** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled"
-
-import type { ButtonProps } from "./types";
-import { StyledButton } from "./styles";
-function Button(props: ButtonProps) {
+import "./styles.css";
+import { type ButtonProps } from "./types";
+function Button({
+  name = "Send",
+  type = "button",
+  onClick = () => {},
+}: ButtonProps) {
   return (
-    <StyledButton
-      type={props.type}
-      onClick={props.onClick}
-      isRed={props.isRed}
-      disabled={props.disabled}
-    >
-      {props.name}
-    </StyledButton>
+    <button className="button_component" type={type} onClick={onClick}>
+      {name}
+    </button>
   );
 }
-
 export default Button;
