@@ -1,12 +1,13 @@
-import styled from "@emotion/styled"
-import type { ChangeEvent } from "react"
+import { type ChangeEvent } from "react";
 
-export type InputProps = {
-  id?: string
-  name?: string
-  value: string
-  placeholder?: string
-  disabled?: boolean
-  error?: string | undefined
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+export interface InputProps {
+  id: string;
+  name: string;
+  type?: string;
+  placeholder: string;
+  label: string;
+  error?: undefined | string;
+  disabled?: boolean;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }

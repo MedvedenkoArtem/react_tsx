@@ -1,37 +1,36 @@
-/** @jsxImportSource @emotion/react */
-/** @jsxImportSource @emotion/react */
-import { ChangeEvent } from "react"
-import { StyledInput, ErrorText, InputWrapper } from "./styles"
-import type { InputProps } from "./types"
+import { type InputProps } from "./types";
+import { InputWrapper, InputLabel, InputComponent, ErrorMessage } from "./styles";
+
 function Input({
   id,
   name,
-  value,
+  type = "text",
   placeholder,
-  disabled,
-  error,
-  onChange,
+  label,
+  disabled = false,
+  error = undefined,
+  value,
+  onChange
 }: InputProps) {
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event)
-  }
-
   return (
     <InputWrapper>
-      <StyledInput
+      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <InputComponent
         id={id}
         name={name}
-        value={value}
+        type={type}
         placeholder={placeholder}
         disabled={disabled}
-        hasError={!!error}
-        onChange={handleChange}
+        $error={error}
+        value={value}
+        onChange={onChange}
       />
-
-      {error && <ErrorText>{error}</ErrorText>}
+      {/* Условный рендеринг
+      - если слева от && стоит false, то элемент справа от && на странице не показывается(т.е скрывается)
+      - если слева от && стоит true, то элемент справа от && на странице показывается */}
+      {!!error && <ErrorMessage>{error}</ErrorMessage>}
     </InputWrapper>
-  )
+  );
 }
 
-export default Input
+export default Input;

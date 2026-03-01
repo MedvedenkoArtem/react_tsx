@@ -1,29 +1,49 @@
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
+
+interface InputComponentProps {
+  $error: string | undefined;
+}
+
+const generateInputColor = (error: string | undefined, disabled?: boolean) => {
+  // if(disabled === true) {
+  if (disabled) {
+    return "#acacacff";
+  } else {
+    if (error) {
+      return "#ff6868ff";
+    } else {
+      return "#3f3f3f";
+    }
+  }
+};
 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
-`
+  gap: 4px;
+`;
 
-export const StyledInput = styled.input<{ hasError: boolean }>`
-  padding: 10px;
-  border-radius: 6px;
+export const InputLabel = styled.label`
+  font-size: 16px;
+  color: hsl(0, 0%, 44%);
+`;
+
+export const InputComponent = styled.input<InputComponentProps>`
+  width: 100%;
+  height: 50px;
   border: 1px solid
-    ${({ hasError }) => (hasError ? "#ff3333" : "#ccc")};
-
-  background-color: ${({ disabled }) =>
-    disabled ? "#e5e5e5" : "white"};
-
+    ${({ disabled, $error }) => generateInputColor($error, disabled)};
+  border-radius: 4px;
+  padding: 12px;
   outline: none;
 
-  &:focus {
-    border-color: ${({ hasError }) =>
-      hasError ? "#ff3333" : "#5252f1"};
+  &::placeholder {
+    color: #6f6f6f;
+    font-size: 16px;
   }
-`
+`;
 
-export const ErrorText = styled.span`
-  font-size: 12px;
-  color: #ff3333;
-`
+export const ErrorMessage = styled.p`
+  height: 20px;
+  color: #ff6868ff;
+`;
