@@ -4,85 +4,73 @@ import axios from "axios";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 
-import { PageWrapper, Text, Card, ContainerUniniversytet } from "./styles";
-
-// 🔹 Тип одного университета из API
-interface University {
-  name: string;
-  country: string;
-  web_pages: string[];
-}
-
 function Lesson_11() {
   const [country, setCountry] = useState<string>("");
-  const [universities, setUniversities] = useState<University[]>([]);
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [universities, setUniversities] = useState<any[]>([]);
+  const [error, setError] = useState<string>("");
 
   const getUniversities = async () => {
-    if (!country) return;
-
     try {
-      setIsLoading(true);
-      setError(undefined);
+      setError("");
       setUniversities([]);
 
-      const response = await axios.get<University[]>(
-        "http://universities.hipolabs.com/search",
-        {
-          params: {
-            country: country,
-          },
-        }
+      const response = await axios.get(
+        `http://universities.hipolabs.com/search?country=${country}`
       );
 
-      setUniversities(response.data.slice(0, 15)); // Ограничиваем количество отображаемых университетов до 10
-    } catch (error: any) {
+      const data = response.data.slice(0, 15);
+
+      if (data.length === 0) {
+        setUniversities([]);
+      } else {
+        setUniversities(data);
+      }
+    } catch (err) {
       setError("Some Network Error");
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCountry(event.target.value);
-  };
-
   return (
-    <PageWrapper>
-      <Card>
-        <Text>Search University</Text>
+    <div style={{ padding: "40px" }}>
+      <h2>Universities Search</h2>
 
-        <Input
-          id="country"
-          name="country"
-          placeholder="Enter country name of university..."
-          label="Country"
-          value={country}
-          onChange={handleChange}
-        />
+      <Input
+        id="country"
+        name="country"
+        label="Country"
+        placeholder="Enter Country for searching universities"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+      />
 
-        <Button
-          disabled={isLoading || !country}
-          name={isLoading ? "Loading..." : "Get Universities"}
-          onClick={getUniversities}
-        />
+      <Button name="Get Universities" onClick={getUniversities} />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <ContainerUniniversytet>
-          {universities.map((item, index) => (
-            <li key={index}>
-              <strong>{item.name}</strong> — {item.country}
-              <br />
-              <a href={item.web_pages[0]} target="_blank" rel="noreferrer">
-                {item.web_pages[0]}
-              </a>
-            </li>
-          ))}
-        </ContainerUniniversytet>
-      </Card>
-    </PageWrapper>
+      {!error && universities.length === 0 && (
+        <p>No Universities by your request</p>
+      )}
+
+      <div style={{ marginTop: "20px" }}>
+        {universities.map((uni, index) => (
+          <div
+            key={index}
+            style={{
+              border: "1px solid #ccc",
+              padding: "15px",
+              marginBottom: "10px",
+              borderRadius: "8px",
+            }}
+          >
+            <h3>{uni.name}</h3>
+            <p>{uni.country}</p>
+            <a href={uni.web_pages[0]} target="_blank">
+              Visit Website
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
