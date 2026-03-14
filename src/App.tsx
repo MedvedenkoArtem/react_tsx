@@ -1,4 +1,14 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom"; 
+import Layout from "components/Layout/Layout";
+
 import GlobalStyles from "styles/GlobalStyles";
+import Home from "pages/EmployeeApp/Home/Home";
+import About from "pages/EmployeeApp/About/About";
+import LogIn from "pages/EmployeeApp/LogIn/LogIn";
+import ContactUs from "pages/EmployeeApp/ContactUs/ContactUs";
+import LifeWaves from "pages/Clients/LifeWaves/LifeWaves";
+import RandomCrafts from "pages/Clients/RandomCrafts/RandomCrafts";
+import YellowCow from "pages/Clients/YellowCow/YellowCow";
 
 // Homeworks
 import Homework_06 from "./homeworks/Homework_06/Homework_06";
@@ -19,14 +29,26 @@ import Lesson_12 from "lessons/Lesson_12/Lesson_12";
 function App() {
   return (
     <>
+    <BrowserRouter>
       <GlobalStyles />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/About" element={<About/>}/>
+          <Route path="/LogIn" element={<LogIn/>}/>
+          <Route path="/ContactUs" element={<ContactUs/>}/>
+          <Route path="/LifeWaves" element={<LifeWaves />} />
+          <Route path="/RandomCrafts" element={<RandomCrafts />} />
+          <Route path="/YellowCow" element={<YellowCow />} />           
+        </Routes>
+      </Layout>
       {/* Homeworks */}
       {/* <Homework_06 /> */}
       {/* <Homewwork_07 /> */}
       {/* <Homework_08 /> */}
-        {/* <Homework_09 /> */}
+      {/* <Homework_09 /> */}
       {/* <Homework_10 /> */}
-      <Homework_12/>
+      {/* <Homework_12/> */}
       {/* Lessons */}
       {/* <Lesson_06 /> */}
       {/* <Lesson_07 /> */}
@@ -35,6 +57,8 @@ function App() {
       {/* <Lesson_10 /> */}
       {/* <Lesson_11 /> */}
       {/* <Lesson_12 /> */}
+      </BrowserRouter>
+
     </>
   );
 }

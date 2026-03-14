@@ -20,11 +20,13 @@ const validationSchema = Yup.object({
     .required("Phone is required"),
 
   [CONTACT_US_VALUES.EMAIL]: Yup.string()
+    .min(6, "Email must be at least 6 characters")
+    .max(60, "Email must be at most 60 characters")
     .email("Invalid email format")
     .required("Email is required"),
 });
 
-function ContactUs() {
+function ContactUsForm() {
   const formik = useFormik({
     initialValues: {
       [CONTACT_US_VALUES.FULL_NAME]: "",
@@ -33,22 +35,21 @@ function ContactUs() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("Full name:", values[CONTACT_US_VALUES.FULL_NAME]);
-      console.log("Phone:", values[CONTACT_US_VALUES.PHONE]);
-      console.log("Email:", values[CONTACT_US_VALUES.EMAIL]);
+      console.log(values);
     },
   });
 
   return (
     <ContactUsContainer onSubmit={formik.handleSubmit}>
-      <Title>Contact Us</Title>
+      <Title>Contact us</Title>
 
       <InputsContainer>
         <Input
           id="full-name-id"
           name={CONTACT_US_VALUES.FULL_NAME}
-          placeholder="Enter your full name"
-          label="Full Name"
+          type="text"
+          placeholder="Your full name"
+          label="Full name*"
           value={formik.values[CONTACT_US_VALUES.FULL_NAME]}
           onChange={formik.handleChange}
           error={formik.errors[CONTACT_US_VALUES.FULL_NAME]}
@@ -57,8 +58,9 @@ function ContactUs() {
         <Input
           id="phone-id"
           name={CONTACT_US_VALUES.PHONE}
-          placeholder="Enter your phone number"
-          label="Phone"
+          type="text"
+          placeholder="Your phone number"
+          label="Phone*"
           value={formik.values[CONTACT_US_VALUES.PHONE]}
           onChange={formik.handleChange}
           error={formik.errors[CONTACT_US_VALUES.PHONE]}
@@ -68,7 +70,7 @@ function ContactUs() {
           id="email-id"
           name={CONTACT_US_VALUES.EMAIL}
           type="email"
-          placeholder="Enter your email"
+          placeholder="Your email"
           label="Email"
           value={formik.values[CONTACT_US_VALUES.EMAIL]}
           onChange={formik.handleChange}
@@ -76,9 +78,9 @@ function ContactUs() {
         />
       </InputsContainer>
 
-      <Button name=" SEND REQUEST" type="submit" />
+      <Button name="SEND REQUEST" type="submit" />
     </ContactUsContainer>
   );
 }
 
-export default ContactUs;
+export default ContactUsForm;

@@ -1,11 +1,13 @@
 import ContactUsForm from "components/ContactUsForm/ContactUsForm";
-import { PageWrapper } from "./styles"
 
-function Homework_12() {
+import { PageWrapper } from "./styles";
+
+function ContactUs() {
   return (
     <PageWrapper>
       <ContactUsForm />
     </PageWrapper>
   );
 }
-export default Homework_12;
+
+export default ContactUs;
