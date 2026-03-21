@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"; 
-import Layout from "components/Layout/Layout";
+// import Layout from "components/Layout/Layout";
+import Layout from "lessons/Lesson_15/Layout/Layout";
+import { EmployeeProvider } from "lessons/Lesson_15/context/EmployeeContext";
 
 import GlobalStyles from "styles/GlobalStyles";
 import Home from "pages/EmployeeApp/Home/Home";
@@ -10,6 +12,8 @@ import Clients from "pages/Clients/Clients";
 import LifeWaves from "pages/Clients/LifeWaves/LifeWaves";
 import RandomCrafts from "pages/Clients/RandomCrafts/RandomCrafts";
 import YellowCow from "pages/Clients/YellowCow/YellowCow";
+import Create_Employee from "lessons/Lesson_15/pages/Create_Employee/Create_Employee";
+import EmployeeCard from "lessons/Lesson_15/pages/EmployeeCard/EmployeeCard";
 
 // Homeworks
 import Homework_06 from "./homeworks/Homework_06/Homework_06";
@@ -33,19 +37,16 @@ function App() {
   return (
     <>
     <BrowserRouter>
+    <EmployeeProvider>
       <GlobalStyles />
-      {/* <Layout>
+      <Layout>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/About" element={<About/>}/>
-          <Route path="/LogIn" element={<LogIn/>}/>
-          <Route path="/ContactUs" element={<ContactUs/>}/>
-          <Route path="/Clients" element={<Clients/>}/>
-          <Route path="/Clients/LifeWaves" element={<LifeWaves />} />
-          <Route path="/Clients/RandomCrafts" element={<RandomCrafts />} />
-          <Route path="/Clients/YellowCow" element={<YellowCow />} />           
+           <Route path="/" element={<Create_Employee />} />
+          <Route path="EmployeeCard" element={<EmployeeCard />} />
         </Routes>
-      </Layout> */}
+      </Layout>
+    </EmployeeProvider>
+
       {/* Homeworks */}
       {/* <Homework_06 /> */}
       {/* <Homewwork_07 /> */}
@@ -53,7 +54,7 @@ function App() {
       {/* <Homework_09 /> */}
       {/* <Homework_10 /> */}
       {/* <Homework_12/> */}
-      <Homework_13/>
+      {/* <Homework_13/> */}
       {/* Lessons */}
       {/* <Lesson_06 /> */}
       {/* <Lesson_07 /> */}
