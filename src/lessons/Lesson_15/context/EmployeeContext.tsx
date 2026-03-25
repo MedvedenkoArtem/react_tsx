@@ -8,20 +8,24 @@ type Employee = {
 };
 
 type ContextType = {
-  employee: Employee | null;
-  setEmployee: (employee: Employee) => void;
+  employees: Employee[];
+  addEmployee: (employee: Employee) => void;
 };
 
 export const EmployeeContext = createContext<ContextType>({
-  employee: null,
-  setEmployee: () => {},
+  employees: [],
+  addEmployee: () => {},
 });
 
 export const EmployeeProvider = ({ children }: any) => {
-  const [employee, setEmployee] = useState<Employee | null>(null);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
+  const addEmployee = (employee: Employee) => {
+    setEmployees((prev) => [...prev, employee]); // 🔥 добавление в массив
+  };
 
   return (
-    <EmployeeContext.Provider value={{ employee, setEmployee }}>
+    <EmployeeContext.Provider value={{ employees, addEmployee }}>
       {children}
     </EmployeeContext.Provider>
   );

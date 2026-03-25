@@ -6,6 +6,7 @@ export const CardWrapper = styled.div`
   background: #e5e5e5;
   border-radius: 8px;
   margin-top: 20px;
+  margin: 20px;
 `;
 
 export const Field = styled.div`

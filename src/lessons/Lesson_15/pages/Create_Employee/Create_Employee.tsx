@@ -18,8 +18,11 @@ const validationSchema = Yup.object({
 });
 
 function Create_Employee() {
-  const { setEmployee } = useContext(EmployeeContext);
+  // const { setEmployee } = useContext(EmployeeContext);
   const navigate = useNavigate();
+  const { addEmployee } = useContext(EmployeeContext);
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -30,7 +33,7 @@ function Create_Employee() {
     },
     validationSchema,
     onSubmit: (values) => {
-      setEmployee(values); 
+      addEmployee(values)
       navigate("/EmployeeCard"); 
     },
   });

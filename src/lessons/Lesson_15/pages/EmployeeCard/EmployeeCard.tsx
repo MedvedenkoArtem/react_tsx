@@ -4,34 +4,38 @@ import { EmployeeContext } from "lessons/Lesson_15/context/EmployeeContext";
 import { CardWrapper, Field, Label, Value } from "./styles";
 
 function EmployeeCard() {
-  const { employee } = useContext(EmployeeContext);
+  const { employees } = useContext(EmployeeContext);
 
-  if (!employee) {
-    return <p>No employee created</p>;
+  if (!employees.length) {
+    return <p>No employees created</p>;
   }
 
   return (
-    <CardWrapper>
-      <Field>
-        <Label>Name</Label>
-        <Value>{employee.name}</Value>
-      </Field>
+    <>
+      {employees.map((employee, index) => (
+        <CardWrapper key={index}>
+          <Field>
+            <Label>Name</Label>
+            <Value>{employee.name}</Value>
+          </Field>
 
-      <Field>
-        <Label>Surname</Label>
-        <Value>{employee.surname}</Value>
-      </Field>
+          <Field>
+            <Label>Surname</Label>
+            <Value>{employee.surname}</Value>
+          </Field>
 
-      <Field>
-        <Label>Age</Label>
-        <Value>{employee.age}</Value>
-      </Field>
+          <Field>
+            <Label>Age</Label>
+            <Value>{employee.age}</Value>
+          </Field>
 
-      <Field>
-        <Label>Job Position</Label>
-        <Value>{employee.job}</Value>
-      </Field>
-    </CardWrapper>
+          <Field>
+            <Label>Job Position</Label>
+            <Value>{employee.job}</Value>
+          </Field>
+        </CardWrapper>
+      ))}
+    </>
   );
 }
 
